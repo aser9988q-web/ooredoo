@@ -309,6 +309,21 @@
         let lang = document.documentElement.getAttribute('lang');
         const langbtn = document.getElementById('langbtn');
         const topImage = document.getElementById('topImage');
+        
+        // تعيين اللغة الإنجليزية كلغة افتراضية
+        if (!lang || lang === 'ar') {
+            lang = 'en';
+            document.documentElement.setAttribute('lang', 'en');
+            document.documentElement.setAttribute('dir', 'ltr');
+            document.documentElement.classList.remove('arabic');
+            topImage.src = 'topimage.jpg';
+            document.querySelectorAll('[data-lang]').forEach(function(tr) {
+                let phrase = tr.getAttribute('data-lang');
+                if (translation && translation['en'] && translation['en'][phrase]) {
+                    tr.innerHTML = translation['en'][phrase];
+                }
+            });
+        }
 
         langbtn.addEventListener('click', switchLanguage);
 
